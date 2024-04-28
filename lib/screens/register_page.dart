@@ -2,8 +2,8 @@ import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
             height: 50,
           ),
           Text(
-            'Welcome back you\'ve been missed!',
+            'Let\'s create an account',
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               fontSize: 16,
@@ -41,10 +41,17 @@ class LoginPage extends StatelessWidget {
             obscureText: true,
           ),
           const SizedBox(
+            height: 10,
+          ),
+          const CustomTextField(
+            hintText: 'Confirm your password',
+            obscureText: true,
+          ),
+          const SizedBox(
             height: 20,
           ),
           CustomButton(
-            text: 'Login',
+            text: 'Regiter',
             onTap: () {},
           ),
           const SizedBox(
@@ -54,7 +61,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Don\'t have an account? ',
+                'Already have an account? ',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -63,7 +70,7 @@ class LoginPage extends StatelessWidget {
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 onPressed: () {},
                 child: Text(
-                  'Register now',
+                  'Login now',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
