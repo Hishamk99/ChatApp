@@ -4,11 +4,14 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hintText,
+    this.obscureText = false,
   });
   final String hintText;
+  final bool obscureText;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
