@@ -20,78 +20,82 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Form(
         key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.message,
-              size: 70,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Text(
-              'Welcome back you\'ve been missed!',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 16,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextField(
-              onSaved: (val) {
-                email = val;
-              },
-              hintText: 'Enter your email',
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomTextField(
-              onSaved: (val) {
-                pass = val;
-              },
-              hintText: 'Enter your password',
-              obscureText: true,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomButton(
-              text: 'Login',
-              onTap: () {},
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don\'t have an account? ',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+              Icon(
+                Icons.message,
+                size: 70,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Text(
+                'Welcome back you\'ve been missed!',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 16,
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                  onPressed: () {
-                    BlocProvider.of<AuthCubit>(context).registerOrLogin();
-                  },
-                  child: Text(
-                    'Register now',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                onSaved: (val) {
+                  email = val;
+                },
+                hintText: 'Enter your email',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTextField(
+                onSaved: (val) {
+                  pass = val;
+                },
+                hintText: 'Enter your password',
+                obscureText: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                text: 'Login',
+                onTap: () {},
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don\'t have an account? ',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  TextButton(
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                    onPressed: () {
+                      BlocProvider.of<AuthCubit>(context).registerOrLogin();
+                    },
+                    child: Text(
+                      'Register now',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
