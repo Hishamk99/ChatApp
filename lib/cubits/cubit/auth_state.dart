@@ -24,7 +24,3 @@ final class AuthRegisterFailure extends AuthState {
 
   AuthRegisterFailure({required this.errorMessage});
 }
-
-final class AuthLogin extends AuthState {}
-
-final class AuthRegister extends AuthState {}
