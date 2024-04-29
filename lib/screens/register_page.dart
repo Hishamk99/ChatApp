@@ -87,6 +87,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+                    // BlocProvider.of<AuthCubit>(context)
+                    //     .registerUser(email: email!, pass: pass!);
                   }
                 },
               ),
