@@ -5,8 +5,15 @@ class SettingsPage extends StatelessWidget {
   static String id = 'SettingsPage';
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Scaffold(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Settings',
+          ),
+        ),
+      ),
     );
   }
 }

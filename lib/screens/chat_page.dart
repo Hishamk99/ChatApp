@@ -12,14 +12,16 @@ class ChatPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Chat'),
+          title: const Text(
+            'Chat',
+          ),
           actions: [
             IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
               },
               icon: const Icon(
-                Icons.exit_to_app,
+                Icons.logout,
               ),
             ),
           ],
