@@ -48,5 +48,32 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> loginUser() async {}
+  Future<void> loginUser({required String email, required String pass}) async {
+    emit(AuthLoginLoading());
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: pass);
+      emit(AuthLoginSuccess());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        emit(
+          AuthRegisterFailure(
+            errorMessage: 'user-not-found',
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        emit(
+          AuthLoginFailure(
+            errorMessage: 'wrong-password',
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        AuthLoginFailure(
+          errorMessage: 'There was an error, please try again.',
+        ),
+      );
+    }
+  }
 }
