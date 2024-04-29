@@ -1,6 +1,8 @@
+import 'package:chat_app/cubits/cubit/auth_cubit.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -51,7 +53,7 @@ class RegisterPage extends StatelessWidget {
             height: 20,
           ),
           CustomButton(
-            text: 'Regiter',
+            text: 'Register',
             onTap: () {},
           ),
           const SizedBox(
@@ -68,7 +70,9 @@ class RegisterPage extends StatelessWidget {
               ),
               TextButton(
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<AuthCubit>(context).registerOrLogin();
+                },
                 child: Text(
                   'Login now',
                   style: TextStyle(
