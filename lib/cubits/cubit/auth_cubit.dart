@@ -64,7 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
       } else if (e.code == 'wrong-password') {
         emit(
           AuthLoginFailure(
-            errorMessage: 'wrong-password',
+            errorMessage: 'passwords don\' match!',
           ),
         );
       }

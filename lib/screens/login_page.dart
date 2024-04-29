@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           showSnackBar(context, state.errorMessage, Colors.red);
         } else if (state is AuthLoginSuccess) {
           isLoading = false;
-          Navigator.pushNamed(context, ChatPage.id);
+          Navigator.pushReplacementNamed(context, ChatPage.id);
         }
       },
       builder: (context, state) {
