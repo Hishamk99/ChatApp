@@ -1,5 +1,6 @@
 import 'package:chat_app/cubits/cubit/auth_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
+import 'package:chat_app/screens/login_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
-
+  static String id = 'RegisterPage';
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -96,18 +97,17 @@ class _RegisterPageState extends State<RegisterPage> {
                         CustomButton(
                           text: 'Register',
                           onTap: () async {
+                            if (pass != confirmedPass) {
+                              showSnackBar(
+                                context,
+                                'Wrong Password',
+                                Colors.red,
+                              );
+                            }
                             if (formKey.currentState!.validate()) {
-                              if (pass != confirmedPass) {
-                                showSnackBar(
-                                  context,
-                                  'Wrong Password',
-                                  Colors.red,
-                                );
-                              } else {
-                                formKey.currentState!.save();
-                                BlocProvider.of<AuthCubit>(context)
-                                    .registerUser(email: email!, pass: pass!);
-                              }
+                              formKey.currentState!.save();
+                              BlocProvider.of<AuthCubit>(context)
+                                  .registerUser(email: email!, pass: pass!);
                             }
                           },
                         ),
@@ -126,7 +126,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             TextButton(
                               style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, LoginPage.id);
+                              },
                               child: Text(
                                 'Login now',
                                 style: TextStyle(

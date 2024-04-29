@@ -1,5 +1,8 @@
 import 'package:chat_app/cubits/cubit/auth_cubit.dart';
+import 'package:chat_app/screens/chat_page.dart';
 import 'package:chat_app/screens/home_page.dart';
+import 'package:chat_app/screens/login_page.dart';
+import 'package:chat_app/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +36,13 @@ class ChatApp extends StatelessWidget {
             inversePrimary: Colors.grey.shade900,
           ),
         ),
-        home: const HomePage(),
+        routes: {
+          LoginPage.id: (context) => const LoginPage(),
+          HomePage.id: (context) => const HomePage(),
+          ChatPage.id: (context) => const ChatPage(),
+          RegisterPage.id: (context) => const RegisterPage(),
+        },
+        initialRoute: HomePage.id,
       ),
     );
   }

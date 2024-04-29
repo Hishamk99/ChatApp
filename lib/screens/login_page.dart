@@ -1,9 +1,11 @@
+import 'package:chat_app/screens/register_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  static String id = 'LoginPage';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -85,7 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, RegisterPage.id);
+                        },
                         child: Text(
                           'Register now',
                           style: TextStyle(
