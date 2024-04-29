@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_list_tile.dart';
@@ -22,12 +23,17 @@ class MyDrawer extends StatelessWidget {
           ),
           CustomListTile(
             txt: 'H O M E',
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+            },
             icon: Icons.home,
           ),
           CustomListTile(
             txt: 'S E T T I N G S',
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, SettingsPage.id);
+            },
             icon: Icons.settings,
           ),
           const Spacer(),
