@@ -1,4 +1,5 @@
 import 'package:chat_app/cubits/cubit/auth_cubit.dart';
+import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,18 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               CustomButton(
                 text: 'Register',
-                onTap: () {},
+                onTap: () {
+                  if (pass != confirmedPass) {
+                    showSnackBar(
+                      context,
+                      'Wrong Password',
+                      Colors.red,
+                    );
+                  }
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                  }
+                },
               ),
               const SizedBox(
                 height: 20,

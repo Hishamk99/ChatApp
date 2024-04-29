@@ -9,11 +9,18 @@ class CustomTextField extends StatelessWidget {
   });
   final String hintText;
   final bool obscureText;
+
   final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onSaved: onSaved,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Field is required';
+        }
+        return null;
+      },
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,

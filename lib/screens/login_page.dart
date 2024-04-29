@@ -65,7 +65,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               CustomButton(
                 text: 'Login',
-                onTap: () {},
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                  }
+                },
               ),
               const SizedBox(
                 height: 20,
