@@ -8,13 +8,23 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
   Future<void> registerUser(
-      {required String email, required String pass}) async {
+      {required String email,
+      required String pass,
+      required String confirmedPass}) async {
     emit(AuthRegisterLoading());
 
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: pass);
-      emit(AuthRegisterSuccess());
+      if (pass != confirmedPass) {
+        emit(
+          AuthRegisterFailure(
+            errorMessage: 'Wrong Password',
+          ),
+        );
+      } else {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: pass);
+        emit(AuthRegisterSuccess());
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(

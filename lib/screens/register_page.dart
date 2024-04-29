@@ -1,5 +1,6 @@
 import 'package:chat_app/cubits/cubit/auth_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
+import 'package:chat_app/screens/chat_page.dart';
 import 'package:chat_app/screens/login_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
@@ -25,11 +26,12 @@ class _RegisterPageState extends State<RegisterPage> {
       listener: (context, state) {
         if (state is AuthRegisterLoading) {
           isLoading = true;
-        } else if (state is AuthLoginFailure) {
+        } else if (state is AuthRegisterFailure) {
           isLoading = false;
           showSnackBar(context, state.errorMessage, Colors.red);
         } else if (state is AuthRegisterSuccess) {
           isLoading = false;
+          Navigator.pushNamed(context, ChatPage.id);
         }
       },
       builder: (context, state) {
@@ -97,17 +99,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         CustomButton(
                           text: 'Register',
                           onTap: () async {
-                            if (pass != confirmedPass) {
-                              showSnackBar(
-                                context,
-                                'Wrong Password',
-                                Colors.red,
-                              );
-                            }
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              BlocProvider.of<AuthCubit>(context)
-                                  .registerUser(email: email!, pass: pass!);
+                              BlocProvider.of<AuthCubit>(context).registerUser(
+                                email: email!,
+                                pass: pass!,
+                                confirmedPass: confirmedPass!,
+                              );
                             }
                           },
                         ),
