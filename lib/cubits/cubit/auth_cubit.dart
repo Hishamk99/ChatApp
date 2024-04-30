@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> registerUser(
       {required String email,
@@ -21,8 +23,13 @@ class AuthCubit extends Cubit<AuthState> {
           ),
         );
       } else {
-        await FirebaseAuth.instance
+        UserCredential user = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: pass);
+
+        firestore.collection('Users').doc(user.user!.uid).set({
+          'uid': user.user!.uid,
+          'Email': email,
+        });
         emit(AuthRegisterSuccess());
       }
     } on FirebaseAuthException catch (e) {
@@ -51,8 +58,13 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> loginUser({required String email, required String pass}) async {
     emit(AuthLoginLoading());
     try {
-      await FirebaseAuth.instance
+      UserCredential user = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: pass);
+
+      firestore.collection('Users').doc(user.user!.uid).set({
+        'uid': user.user!.uid,
+        'Email': email,
+      });
       emit(AuthLoginSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
