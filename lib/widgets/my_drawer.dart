@@ -1,7 +1,6 @@
 import 'package:chat_app/screens/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'custom_list_tile.dart';
 
 class MyDrawer extends StatelessWidget {

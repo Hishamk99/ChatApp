@@ -29,6 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
         firestore.collection('Users').doc(user.user!.uid).set({
           'uid': user.user!.uid,
           'Email': email,
+          'Password': pass,
         });
         emit(AuthRegisterSuccess());
       }
@@ -64,6 +65,7 @@ class AuthCubit extends Cubit<AuthState> {
       firestore.collection('Users').doc(user.user!.uid).set({
         'uid': user.user!.uid,
         'Email': email,
+        'Password': pass,
       });
       emit(AuthLoginSuccess());
     } on FirebaseAuthException catch (e) {

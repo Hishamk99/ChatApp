@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -45,6 +44,16 @@ class ChatApp extends StatelessWidget {
           RegisterPage.id: (context) => const RegisterPage(),
           SettingsPage.id: (context) => const SettingsPage(),
         },
+        // home: StreamBuilder(
+        //   stream: FirebaseAuth.instance.authStateChanges(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasData) {
+        //       return const ChatPage();
+        //     } else {
+        //       return const LoginPage();
+        //     }
+        //   },
+        // ),
         initialRoute: HomePage.id,
       ),
     );
