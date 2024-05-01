@@ -1,12 +1,22 @@
+import 'package:chat_app/constants.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:chat_app/widgets/my_drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
   static String id = 'ChatPage';
+
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  CollectionReference messages =
+      FirebaseFirestore.instance.collection(kMessagesCollections);
 
   @override
   Widget build(BuildContext context) {
