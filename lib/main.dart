@@ -38,7 +38,7 @@ class ChatApp extends StatelessWidget {
             RegisterPage.id: (context) => const RegisterPage(),
             SettingsPage.id: (context) => const SettingsPage(),
           },
-          initialRoute: HomePage.id,
+          initialRoute: LoginPage.id,
         );
       },
     );

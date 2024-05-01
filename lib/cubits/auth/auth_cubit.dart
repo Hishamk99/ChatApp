@@ -56,6 +56,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  getEmail({required String email}) {
+    return email;
+  }
+
   Future<void> loginUser({required String email, required String pass}) async {
     emit(AuthLoginLoading());
     try {

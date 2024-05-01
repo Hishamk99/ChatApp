@@ -31,7 +31,11 @@ class _RegisterPageState extends State<RegisterPage> {
           showSnackBar(context, state.errorMessage, Colors.red);
         } else if (state is AuthRegisterSuccess) {
           isLoading = false;
-          Navigator.pushReplacementNamed(context, ChatPage.id);
+          Navigator.pushNamed(
+            context,
+            ChatPage.id,
+            arguments: email,
+          );
         }
       },
       builder: (context, state) {

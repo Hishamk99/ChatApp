@@ -12,7 +12,10 @@ class HomePage extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const ChatPage();
+          debugPrint(snapshot.data!.email);
+          return ChatPage(
+            userEmail: snapshot.data!.email,
+          );
         } else {
           return const LoginPage();
         }
