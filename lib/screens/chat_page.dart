@@ -1,4 +1,5 @@
 import 'package:chat_app/widgets/chat_bubble.dart';
+import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:chat_app/widgets/my_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +29,43 @@ class ChatPage extends StatelessWidget {
           ],
         ),
         drawer: const MyDrawer(),
-        body: const Column(
-          children: [
-            ChatBubble(),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return const ChatBubble();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        hintText: 'Send Message',
+                        onSaved: (val) {},
+                      ),
+                    ),
+                    IconButton(
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.arrow_upward,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
