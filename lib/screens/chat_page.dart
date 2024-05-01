@@ -23,14 +23,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   CollectionReference messages =
       FirebaseFirestore.instance.collection(kMessagesCollections);
-  TextEditingController controller = TextEditingController();
-
+  ScrollController controller = ScrollController();
+  TextEditingController controlller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var email = ModalRoute.of(context)!.settings.arguments;
     return SafeArea(
       child: StreamBuilder<QuerySnapshot>(
-        stream: messages.orderBy(kCreatedAt).snapshots(),
+        stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
         builder: (context, snapshot) {
           List<MessageModel> messageList = [];
           if (snapshot.hasData) {
@@ -63,6 +63,8 @@ class _ChatPageState extends State<ChatPage> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: messageList.length,
+                      controller: controller,
+                      reverse: true,
                       itemBuilder: (context, index) {
                         return messageList[index].id == email
                             ? ChatBubble(
@@ -80,7 +82,7 @@ class _ChatPageState extends State<ChatPage> {
                       children: [
                         Expanded(
                           child: TextField(
-                            controller: controller,
+                            controller: controlller,
                             onSubmitted: (data) {
                               messages.add(
                                 {
@@ -90,7 +92,10 @@ class _ChatPageState extends State<ChatPage> {
                                   kId: email,
                                 },
                               );
-                              controller.clear();
+                              controlller.clear();
+                              controller.animateTo(0,
+                                  duration: const Duration(milliseconds: 1),
+                                  curve: Curves.easeIn);
                             },
                             decoration: InputDecoration(
                               hintText: 'Send Message',
@@ -124,7 +129,7 @@ class _ChatPageState extends State<ChatPage> {
                             //     kId: widget.id,
                             //   },
                             // );
-                            controller.clear();
+                            controlller.clear();
                           },
                           icon: const Icon(
                             Icons.arrow_upward,
