@@ -1,9 +1,11 @@
 import 'package:chat_app/cubits/auth/auth_cubit.dart';
+import 'package:chat_app/cubits/theme/theme_cubit.dart';
 import 'package:chat_app/screens/chat_page.dart';
 import 'package:chat_app/screens/home_page.dart';
 import 'package:chat_app/screens/login_page.dart';
 import 'package:chat_app/screens/register_page.dart';
 import 'package:chat_app/screens/settings_page.dart';
+import 'package:chat_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ void main() async {
   );
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => AuthCubit()),
+    BlocProvider(create: (context) => ThemeCubit()),
   ], child: const ChatApp()));
 }
 
@@ -26,15 +29,7 @@ class ChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.light(
-          background: Colors.grey.shade100,
-          primary: Colors.grey.shade500,
-          secondary: Colors.grey.shade300,
-          tertiary: Colors.white,
-          inversePrimary: Colors.grey.shade900,
-        ),
-      ),
+      theme: lightThme,
       routes: {
         LoginPage.id: (context) => const LoginPage(),
         HomePage.id: (context) => const HomePage(),
@@ -42,16 +37,6 @@ class ChatApp extends StatelessWidget {
         RegisterPage.id: (context) => const RegisterPage(),
         SettingsPage.id: (context) => const SettingsPage(),
       },
-      // home: StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasData) {
-      //       return const ChatPage();
-      //     } else {
-      //       return const LoginPage();
-      //     }
-      //   },
-      // ),
       initialRoute: HomePage.id,
     );
   }
