@@ -1,6 +1,7 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
+import 'package:chat_app/widgets/chat_bubble_for_friend.dart';
 import 'package:chat_app/widgets/my_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +30,7 @@ class _ChatPageState extends State<ChatPage> {
     var email = ModalRoute.of(context)!.settings.arguments;
     return SafeArea(
       child: StreamBuilder<QuerySnapshot>(
-        stream: messages.snapshots(),
+        stream: messages.orderBy(kCreatedAt).snapshots(),
         builder: (context, snapshot) {
           List<MessageModel> messageList = [];
           if (snapshot.hasData) {
@@ -63,9 +64,13 @@ class _ChatPageState extends State<ChatPage> {
                     child: ListView.builder(
                       itemCount: messageList.length,
                       itemBuilder: (context, index) {
-                        return ChatBubble(
-                          message: messageList[index],
-                        );
+                        return messageList[index].id == email
+                            ? ChatBubble(
+                                message: messageList[index],
+                              )
+                            : ChatBubbleForFriend(
+                                message: messageList[index],
+                              );
                       },
                     ),
                   ),
