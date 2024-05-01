@@ -1,4 +1,4 @@
-import 'package:chat_app/cubits/cubit/auth_cubit.dart';
+import 'package:chat_app/cubits/auth/auth_cubit.dart';
 import 'package:chat_app/screens/chat_page.dart';
 import 'package:chat_app/screens/home_page.dart';
 import 'package:chat_app/screens/login_page.dart';
@@ -14,7 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ChatApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (context) => AuthCubit()),
+  ], child: const ChatApp()));
 }
 
 class ChatApp extends StatelessWidget {
@@ -22,40 +24,35 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AuthCubit()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.light(
-            background: Colors.grey.shade100,
-            primary: Colors.grey.shade500,
-            secondary: Colors.grey.shade300,
-            tertiary: Colors.white,
-            inversePrimary: Colors.grey.shade900,
-          ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.light(
+          background: Colors.grey.shade100,
+          primary: Colors.grey.shade500,
+          secondary: Colors.grey.shade300,
+          tertiary: Colors.white,
+          inversePrimary: Colors.grey.shade900,
         ),
-        routes: {
-          LoginPage.id: (context) => const LoginPage(),
-          HomePage.id: (context) => const HomePage(),
-          ChatPage.id: (context) => const ChatPage(),
-          RegisterPage.id: (context) => const RegisterPage(),
-          SettingsPage.id: (context) => const SettingsPage(),
-        },
-        // home: StreamBuilder(
-        //   stream: FirebaseAuth.instance.authStateChanges(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasData) {
-        //       return const ChatPage();
-        //     } else {
-        //       return const LoginPage();
-        //     }
-        //   },
-        // ),
-        initialRoute: HomePage.id,
       ),
+      routes: {
+        LoginPage.id: (context) => const LoginPage(),
+        HomePage.id: (context) => const HomePage(),
+        ChatPage.id: (context) => const ChatPage(),
+        RegisterPage.id: (context) => const RegisterPage(),
+        SettingsPage.id: (context) => const SettingsPage(),
+      },
+      // home: StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       return const ChatPage();
+      //     } else {
+      //       return const LoginPage();
+      //     }
+      //   },
+      // ),
+      initialRoute: HomePage.id,
     );
   }
 }
