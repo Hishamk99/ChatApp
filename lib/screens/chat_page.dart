@@ -6,15 +6,12 @@ import 'package:chat_app/widgets/my_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({
     super.key,
-    this.userEmail,
   });
   static String id = 'ChatPage';
-  final String? userEmail;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -87,15 +84,16 @@ class _ChatPageState extends State<ChatPage> {
                               messages.add(
                                 {
                                   kMessage: data,
-                                  kCreatedAt:
-                                      DateFormat().format(DateTime.now()),
+                                  kCreatedAt: DateTime.now(),
                                   kId: email,
                                 },
                               );
                               controlller.clear();
-                              controller.animateTo(0,
-                                  duration: const Duration(milliseconds: 1),
-                                  curve: Curves.easeIn);
+                              controller.animateTo(
+                                0,
+                                duration: const Duration(milliseconds: 1),
+                                curve: Curves.easeIn,
+                              );
                             },
                             decoration: InputDecoration(
                               hintText: 'Send Message',
@@ -109,9 +107,10 @@ class _ChatPageState extends State<ChatPage> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inversePrimary,
+                                ),
                               ),
                             ),
                           ),

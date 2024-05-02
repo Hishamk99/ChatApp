@@ -13,9 +13,7 @@ class HomePage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           debugPrint(snapshot.data!.email);
-          return ChatPage(
-            userEmail: snapshot.data!.email,
-          );
+          return const ChatPage();
         } else {
           return const LoginPage();
         }
